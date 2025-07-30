@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
  "scripts": {
-    "dev": "nodemon index.cjs"
+  "dev": "nodemon index.cjs",
+  "start": "node index.cjs"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
