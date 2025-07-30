@@ -50,7 +50,7 @@ export const checkAuth = createAsyncThunk(
       }
       
       axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`
-      const response = await axios.get(`${API_URL}/me`)
+      const response = await axiosInstance.get(`${API_URL}/me`)
       return response.data
     } catch (error) {
       localStorage.removeItem('token')
