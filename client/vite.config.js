@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  base: './', // ✅ REQUIRED for proper relative paths in Vercel
+
   server: {
     proxy: {
       '/api': {
@@ -13,7 +15,7 @@ export default defineConfig({
         target: 'http://localhost:5000',
         changeOrigin: true,
         ws: true,
-      }
-    }
-  }
+      }
+    }
+  }
 })
