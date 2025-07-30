@@ -19,14 +19,15 @@ const server = http.createServer(app)
 // Socket.IO setup
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST"]
+    origin: process.env.CLIENT_URL,
+    methods: ["GET", "POST"],
+    credentials: true
   }
 })
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: process.env.CLIENT_URL,
   credentials: true
 }))
 app.use(express.json())
