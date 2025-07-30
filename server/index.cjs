@@ -28,7 +28,7 @@ const io = socketIo(server, {
 // Middleware
 app.use(cors({
   origin: process.env.CLIENT_URL || 'https://quickcart-grocery-tdkg.vercel.app',
-  credentials: true,
+  credentials: true,
 }))
 app.use(express.json())
 
