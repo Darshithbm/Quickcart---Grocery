@@ -13,7 +13,7 @@ import {
 
 const Home = () => {
   const dispatch = useDispatch()
-  const { items: products } = useSelector(state => state.products)
+  const { items: products = [] } = useSelector(state => state.products)
   const { isAuthenticated } = useSelector(state => state.auth)
 
   useEffect(() => {
