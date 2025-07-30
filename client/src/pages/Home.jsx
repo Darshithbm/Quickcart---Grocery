@@ -20,7 +20,7 @@ const Home = () => {
     dispatch(fetchProducts())
   }, [dispatch])
 
-  const featuredProducts = products.slice(0, 6)
+  const featuredProducts = Array.isArray(products) ? products.slice(0, 6) : []
 
   const features = [
     {
