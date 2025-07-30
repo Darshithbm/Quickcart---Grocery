@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from '../../utils/axiosInstance'
+import axiosInstance from '../../utils/axiosInstance'
 
 const API_URL = '/api/products'
 
@@ -8,7 +8,7 @@ export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(API_URL)
+      const response = await axiosInstance.get(API_URL)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch products')
@@ -20,7 +20,7 @@ export const createProduct = createAsyncThunk(
   'products/createProduct',
   async (productData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(API_URL, productData)
+      const response = await axiosInstance.post(API_URL, productData)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to create product')
@@ -32,7 +32,7 @@ export const updateProduct = createAsyncThunk(
   'products/updateProduct',
   async ({ id, productData }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${API_URL}/${id}`, productData)
+      const response = await axiosInstance.put(`${API_URL}/${id}`, productData)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to update product')
@@ -44,7 +44,7 @@ export const deleteProduct = createAsyncThunk(
   'products/deleteProduct',
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`${API_URL}/${id}`)
+      await axiosInstance.delete(`${API_URL}/${id}`)
       return id
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to delete product')

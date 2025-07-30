@@ -1,17 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from '../../utils/axiosInstance'
+import axiosInstance from '../../utils/axiosInstance'
 
 const API_URL = '/api/auth'
 
 // Configure axios defaults
-axios.defaults.withCredentials = true
+axiosInstance.defaults.withCredentials = true
 
 // Async thunks
 export const register = createAsyncThunk(
   'auth/register',
   async ({ name, email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${API_URL}/register`, {
+      const response = await axiosInstance.post(`${API_URL}/register`, {
         name,
         email,
         password,
@@ -28,7 +28,7 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${API_URL}/login`, {
+      const response = await axiosInstance.post(`${API_URL}/login`, {
         email,
         password,
       })
@@ -49,12 +49,12 @@ export const checkAuth = createAsyncThunk(
         return rejectWithValue('No token found')
       }
       
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`
       const response = await axios.get(`${API_URL}/me`)
       return response.data
     } catch (error) {
       localStorage.removeItem('token')
-      delete axios.defaults.headers.common['Authorization']
+      delete axiosInstance.defaults.headers.common['Authorization']
       return rejectWithValue(error.response?.data?.message || 'Auth check failed')
     }
   }
@@ -62,7 +62,7 @@ export const checkAuth = createAsyncThunk(
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   localStorage.removeItem('token')
-  delete axios.defaults.headers.common['Authorization']
+  delete axiosInstance.defaults.headers.common['Authorization']
   return null
 })
 
