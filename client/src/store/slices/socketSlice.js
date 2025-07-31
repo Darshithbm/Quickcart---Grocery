@@ -16,8 +16,10 @@ const socketSlice = createSlice({
         state.connection.disconnect()
       }
 
-      const socket = io(import.meta.env.PROD ? 'https://quickcart-grocery-tdkg.vercel.app' : 'http://localhost:5000', {
+      const socket = io(import.meta.env.VITE_API_URL ||'http://localhost:5000',
+         {
         transports: ['websocket'],
+        withCredentials: true
       })
       
       state.connection = socket
