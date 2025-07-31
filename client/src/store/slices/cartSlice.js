@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from '../../utils/axiosInstance'
+import axiosInstance from '../../utils/axiosInstance'
 
 const API_URL = '/cart'
 
@@ -8,7 +8,7 @@ export const fetchCart = createAsyncThunk(
   'cart/fetchCart',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(API_URL)
+      const response = await axiosInstance.get(API_URL)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch cart')
@@ -20,7 +20,7 @@ export const addToCart = createAsyncThunk(
   'cart/addToCart',
   async ({ productId, quantity = 1 }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(API_URL, { productId, quantity })
+      const response = await axiosInstance.post(API_URL, { productId, quantity })
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to add to cart')
@@ -32,7 +32,7 @@ export const updateCartItem = createAsyncThunk(
   'cart/updateCartItem',
   async ({ productId, quantity }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${API_URL}/${productId}`, { quantity }) // ✅ fixed
+      const response = await axiosInstance.put(`${API_URL}/${productId}`, { quantity }) // ✅ fixed
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to update cart')
@@ -44,7 +44,7 @@ export const removeFromCart = createAsyncThunk(
   'cart/removeFromCart',
   async (productId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`${API_URL}/${productId}`) // ✅ fixed
+      const response = await axiosInstance.delete(`${API_URL}/${productId}`) // ✅ fixed
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to remove from cart')
@@ -56,7 +56,7 @@ export const clearCart = createAsyncThunk(
   'cart/clearCart',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(API_URL) // ✅ fixed
+      const response = await axiosInstance.delete(API_URL) // ✅ fixed
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to clear cart')
