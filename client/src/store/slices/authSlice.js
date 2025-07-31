@@ -70,7 +70,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null,
-    token: localStorage.getItem('token'),
+    token: localStorage.getItem('token') || null,
     isAuthenticated: false,
     loading: true,
     error: null,
@@ -108,6 +108,7 @@ const authSlice = createSlice({
         state.isAuthenticated = true
         state.user = action.payload.user
         state.token = action.payload.token
+        localStorage.setItem('token', action.payload.token)
         axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.token}`
       })
       .addCase(login.rejected, (state, action) => {
