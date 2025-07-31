@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from '../../utils/axiosInstance'
+import axiosInstance from '../../utils/axiosInstance'
 import { saveAs } from 'file-saver'
 
 const API_URL = '/orders'
@@ -9,7 +9,7 @@ export const fetchOrders = createAsyncThunk(
   'orders/fetchOrders',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(API_URL)
+      const response = await axiosInstance.get(API_URL)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch orders')
@@ -21,7 +21,7 @@ export const fetchAllOrders = createAsyncThunk(
   'orders/fetchAllOrders',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}/all`)
+      const response = await axiosInstance.get(`${API_URL}/all`)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch all orders')
@@ -33,7 +33,7 @@ export const createOrder = createAsyncThunk(
   'orders/createOrder',
   async (orderData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(API_URL, orderData)
+      const response = await axiosInstance.post(API_URL, orderData)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to create order')
@@ -45,7 +45,7 @@ export const updateOrderStatus = createAsyncThunk(
   'orders/updateOrderStatus',
   async ({ orderId, status }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${API_URL}/${orderId}/status`, { status })
+      const response = await axiosInstance.put(`${API_URL}/${orderId}/status`, { status })
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to update order status')
@@ -58,7 +58,7 @@ export const downloadReceipt = createAsyncThunk(
   'orders/downloadReceipt',
   async (orderId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}/${orderId}/receipt`, {
+      const response = await axiosInstance.get(`${API_URL}/${orderId}/receipt`, {
         responseType: 'blob'
       })
       const blob = new Blob([response.data], { type: 'application/pdf' })
