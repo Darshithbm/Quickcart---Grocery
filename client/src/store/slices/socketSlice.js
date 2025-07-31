@@ -15,16 +15,10 @@ const socketSlice = createSlice({
       if (state.connection) {
         state.connection.disconnect()
       }
-      
-      const socket = io(
-  import.meta.env.PROD
-    ? 'https://quickcart-grocery-w7p6.onrender.com'
-    : 'http://localhost:5000',
-  {
-    withCredentials: true,
-    transports: ['websocket'],
-  }
-)
+
+      const socket = io(import.meta.env.PROD ? 'https://quickcart-grocery-tdkg.vercel.app' : 'http://localhost:5000', {
+        transports: ['websocket'],
+      })
       
       state.connection = socket
       
