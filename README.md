@@ -29,7 +29,7 @@ Features:
 
 4. Tech Stack
 
-Frontend: React, Redux Toolkit, React Router, TailwindCSS, Socket.IO Client
-Backend: Node.js, Express, MongoDB, Mongoose, Socket.IO, JWT, Razorpay
-PDF Generation: PDFKit
-Payments: Razorpay
+* Frontend: React, Redux Toolkit, React Router, TailwindCSS, Socket.IO Client
+* Backend: Node.js, Express, MongoDB, Mongoose, Socket.IO, JWT, Razorpay
+* PDF Generation: PDFKit
+* Payments: Razorpay
